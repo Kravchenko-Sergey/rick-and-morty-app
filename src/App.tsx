@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Router } from './router'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const queryClient = new QueryClient()
 
   return (
-    <>
-      <div></div>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Router/>
+    </QueryClientProvider>
   )
 }
 

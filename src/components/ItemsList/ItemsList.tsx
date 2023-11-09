@@ -1,4 +1,4 @@
-import { Card, TextField } from '@mui/material'
+import { Card, Pagination, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDebounce } from '../../hooks/useDebounse'
@@ -7,16 +7,20 @@ import { useGetItemsQuery } from '../../hooks/useGetItemsQuery.ts'
 export const ItemsList = () => {
 	const [searchValue, setSearchValue] = useState('')
 	const navigate = useNavigate()
+    const [page, setPage] = useState(1)
 
 	const debouncedValue = useDebounce(searchValue, 500)
 
-	const { data, isLoading, isSuccess } = useGetItemsQuery(debouncedValue)
-
-	console.log(data)
+	const { data, isLoading, isSuccess } = useGetItemsQuery(debouncedValue, page)
 
 	const handleItemClick = (id: number) => {
 		navigate(`/${id}`)
 	}
+
+    const handlePagination = (event: React.ChangeEvent<unknown>, value: number)=>{
+        setPage(value)
+    }
+    
 
 	return (
 		<>
@@ -44,6 +48,15 @@ export const ItemsList = () => {
 						})}
 				</div>
 			)}
+            <Pagination
+					count={data?.data.info.pages}
+					page={page}
+					onChange={handlePagination}
+					shape='rounded'
+					color={'primary'}
+					size={'small'}
+					disabled={isLoading}
+				/>
 		</>
 	)
 }

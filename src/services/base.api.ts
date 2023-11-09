@@ -10,3 +10,8 @@ export const getItem = async (id: number) => {
 	const res = await axios(`${baseUrl}character/${id}`)
 	return res
 }
+
+export const getEpisodes = async (id: number) => {
+	const res = await axios(`${baseUrl}episode/${id}`)
+	return res
+}

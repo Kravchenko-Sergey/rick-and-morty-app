@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { useDebounce } from '../../hooks/useDebounse'
 import { useGetItemsQuery } from '../../hooks/useGetItemsQuery.ts'
 import { ThemeContext, themes } from '../../contexts/themeContext.ts'
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
+import Brightness2RoundedIcon from '@mui/icons-material/Brightness2Rounded';
+import s from '../ItemsList/ItemsList.module.scss'
 
 export const ItemsList = () => {
 	const [searchValue, setSearchValue] = useState('')
@@ -39,83 +42,100 @@ export const ItemsList = () => {
 
 	return (
 		<>
-		<ThemeContext.Consumer>
-    {({ theme, setTheme }: any) => (
-      <Switch
-        onChange={() => {
-          if (theme === themes.light) setTheme(themes.dark)
-          if (theme === themes.dark) setTheme(themes.light)
-        }}
-        checked={theme === themes.dark}
-				inputProps={{ 'aria-label': 'controlled' }}
-      />
-    )}
-  </ThemeContext.Consumer>
-			
-			<TextField
-				id='outlined-basic'
-				label='Outlined'
-				variant='outlined'
-				value={searchValue}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-					setSearchValue(e.currentTarget.value)
-				}}
-			/>
-			<FormControl fullWidth>
-				<InputLabel id="demo-simple-select-label">Status</InputLabel>
-				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
-					value={status}
-					label="Status"
-					onChange={handleStatusSelect}
-				>
-					<MenuItem value={'alive'}>Alive</MenuItem>
-					<MenuItem value={'dead'}>Dead</MenuItem>
-					<MenuItem value={'unknown'}>Unknown</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControl fullWidth>
-				<InputLabel id="demo-simple-select-label">Gender</InputLabel>
-				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
-					value={gender}
-					label="Gender"
-					onChange={handleGenderSelect}
-				>
-					<MenuItem value={'male'}>Male</MenuItem>
-					<MenuItem value={'female'}>Female</MenuItem>
-					<MenuItem value={'genderless'}>Genderless</MenuItem>
-					<MenuItem value={'unknown'}>Unknown</MenuItem>
-				</Select>
-			</FormControl>
+
+			<header className={s.header}>
+				<TextField
+					id='outlined-basic'
+					label='Search'
+					variant='outlined'
+					value={searchValue}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+						setSearchValue(e.currentTarget.value)
+					}}
+					className={s.search}
+				/>
+				<FormControl className={s.select} fullWidth>
+					<InputLabel id="demo-simple-select-label">Status</InputLabel>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={status}
+						defaultValue='All'
+						label="Status"
+						onChange={handleStatusSelect}
+						className={s.select}
+					>
+						<MenuItem value={'All'}>All</MenuItem>
+						<MenuItem value={'alive'}>Alive</MenuItem>
+						<MenuItem value={'dead'}>Dead</MenuItem>
+						<MenuItem value={'unknown'}>Unknown</MenuItem>
+					</Select>
+				</FormControl>
+				<FormControl className={s.select} fullWidth>
+					<InputLabel id="demo-simple-select-label">Gender</InputLabel>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={gender}
+						label="Gender"
+						onChange={handleGenderSelect}
+						className={s.select}
+					>
+						<MenuItem value={''}>All</MenuItem>
+						<MenuItem value={'male'}>Male</MenuItem>
+						<MenuItem value={'female'}>Female</MenuItem>
+						<MenuItem value={'genderless'}>Genderless</MenuItem>
+						<MenuItem value={'unknown'}>Unknown</MenuItem>
+					</Select>
+				</FormControl>
+				<div className={s.toggler}>
+					<LightModeRoundedIcon />
+					<ThemeContext.Consumer>
+						{({ theme, setTheme }: any) => (
+							<Switch
+								onChange={() => {
+									if (theme === themes.light) setTheme(themes.dark)
+									if (theme === themes.dark) setTheme(themes.light)
+								}}
+								checked={theme === themes.dark}
+								inputProps={{ 'aria-label': 'controlled' }}
+							/>
+						)}
+					</ThemeContext.Consumer>
+					<Brightness2RoundedIcon />
+				</div>
+			</header>
 			{isLoading ? (
 				<div>...Loading</div>
 			) : (
-				<div>
+				<div className={s.items}>
 					{isSuccess &&
 						data.data.results.map((el: Item) => {
 							return (
-								<Card key={el.id} onClick={() => handleItemClick(el.id)}>
-									<img src={el.image} alt='image' />
-									<p>{el.name}</p>
-									<p>{el.status}</p>
-									<p>{el.gender}</p>
+								<Card key={el.id} onClick={() => handleItemClick(el.id)} className={s.card}>
+									<img src={el.image} alt='image' className={s.itemImage} />
+									<div className={s.itemInfo}>
+										<div className={s.property}><span>name:</span><p>{el.name}</p></div>
+										<div className={s.property}><span>status:</span><p>{el.status}</p></div>
+										<div className={s.property}><span>gender:</span><p>{el.gender}</p></div>
+									</div>
+
 								</Card>
 							)
 						})}
 				</div>
 			)}
-			<Pagination
-				count={data?.data.info.pages}
-				page={page}
-				onChange={handlePagination}
-				shape='rounded'
-				color={'primary'}
-				size={'small'}
-				disabled={isLoading}
-			/>
+			<div className={s.pagination}>
+				<Pagination
+					count={data?.data.info.pages}
+					page={page}
+					onChange={handlePagination}
+					shape='rounded'
+					color={'primary'}
+					size={'small'}
+					disabled={isLoading}
+				/>
+			</div>
 		</>
 	)
 }

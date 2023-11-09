@@ -8,6 +8,9 @@ export const Item = () => {
 
 	const query = useQuery('item', () => getItem(Number(params.id)))
 
+	console.log(query);
+	
+
 	return (
 		<Card>
 			<img src={query.data?.data.image} alt='image' />

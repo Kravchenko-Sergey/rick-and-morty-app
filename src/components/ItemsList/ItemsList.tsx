@@ -1,4 +1,4 @@
-import { Card, Pagination, TextField } from '@mui/material'
+import { Card, FormControl, InputLabel, MenuItem, Pagination, Select, SelectChangeEvent, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDebounce } from '../../hooks/useDebounse'
@@ -8,10 +8,12 @@ export const ItemsList = () => {
 	const [searchValue, setSearchValue] = useState('')
 	const navigate = useNavigate()
     const [page, setPage] = useState(1)
+    const [gender, setGender] = useState('')
+    const [status, setStatus] = useState('')
 
 	const debouncedValue = useDebounce(searchValue, 500)
 
-	const { data, isLoading, isSuccess } = useGetItemsQuery(debouncedValue, page)
+	const { data, isLoading, isSuccess } = useGetItemsQuery(debouncedValue, page, status, gender)
 
 	const handleItemClick = (id: number) => {
 		navigate(`/${id}`)
@@ -21,7 +23,18 @@ export const ItemsList = () => {
         setPage(value)
     }
     
+    console.log(data);
+    
+    const handleGenderSelect = (event: SelectChangeEvent) => {
+        setGender(event.target.value as string)
+    }
 
+    const handleStatusSelect = (event: SelectChangeEvent) => {
+        setStatus(event.target.value as string)
+    }
+
+    console.log(gender);
+    
 	return (
 		<>
 			<TextField
@@ -33,6 +46,35 @@ export const ItemsList = () => {
 					setSearchValue(e.currentTarget.value)
 				}}
 			/>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={status}
+                    label="Status"
+                    onChange={handleStatusSelect}
+                >
+                    <MenuItem value={'alive'}>Alive</MenuItem>
+                    <MenuItem value={'dead'}>Dead</MenuItem>
+                    <MenuItem value={'unknown'}>Unknown</MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={gender}
+                    label="Gender"
+                    onChange={handleGenderSelect}
+                >
+                    <MenuItem value={'male'}>Male</MenuItem>
+                    <MenuItem value={'female'}>Female</MenuItem>
+                    <MenuItem value={'genderless'}>Genderless</MenuItem>
+                    <MenuItem value={'unknown'}>Unknown</MenuItem>
+                </Select>
+            </FormControl>
 			{isLoading ? (
 				<div>...Loading</div>
 			) : (
@@ -43,6 +85,8 @@ export const ItemsList = () => {
 								<Card key={el.id} onClick={() => handleItemClick(el.id)}>
 									<img src={el.image} alt='image' />
 									<p>{el.name}</p>
+                                    <p>{el.status}</p>
+                                    <p>{el.gender}</p>
 								</Card>
 							)
 						})}

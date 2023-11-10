@@ -16,18 +16,34 @@ export const Item = () => {
 		navigate('/')
 	}
 
-
 	return (
 		<Card className={s.card}>
 			<img src={query.data?.data.image} alt='image' className={s.image} />
 			<div>
-				<div className={s.property}><span>name:</span><p>{query.data?.data.name}</p></div>
-				<div className={s.property}><span>status:</span><p>{query.data?.data.status}</p></div>
-				<div className={s.property}><span>gender:</span><p>{query.data?.data.gender}</p></div>
-				<div className={s.property}><span>species:</span><p>{query.data?.data.species}</p></div>
-				<div className={s.property}><span>episode:</span><p>{episodes.data?.data.episode}</p></div>
+				<div className={s.property}>
+					<span>name:</span>
+					<p>{query.data?.data.name}</p>
+				</div>
+				<div className={s.property}>
+					<span>status:</span>
+					<p>{query.data?.data.status}</p>
+				</div>
+				<div className={s.property}>
+					<span>gender:</span>
+					<p>{query.data?.data.gender}</p>
+				</div>
+				<div className={s.property}>
+					<span>species:</span>
+					<p>{query.data?.data.species}</p>
+				</div>
+				<div className={s.property}>
+					<span>episode:</span>
+					<p>{episodes.data?.data.episode}</p>
+				</div>
 			</div>
-			<button onClick={handleBtnClick} className={s.backBtn}>back</button>
+			<button onClick={handleBtnClick} className={s.backBtn}>
+				back
+			</button>
 		</Card>
 	)
 }

@@ -1,11 +1,21 @@
-import { Card, FormControl, InputLabel, MenuItem, Pagination, Select, SelectChangeEvent, Switch, TextField } from '@mui/material'
+import {
+	Card,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Pagination,
+	Select,
+	SelectChangeEvent,
+	Switch,
+	TextField
+} from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDebounce } from '../../hooks/useDebounse'
 import { useGetItemsQuery } from '../../hooks/useGetItemsQuery.ts'
 import { ThemeContext, themes } from '../../contexts/themeContext.ts'
-import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import Brightness2RoundedIcon from '@mui/icons-material/Brightness2Rounded';
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
+import Brightness2RoundedIcon from '@mui/icons-material/Brightness2Rounded'
 import s from '../ItemsList/ItemsList.module.scss'
 
 export const ItemsList = () => {
@@ -14,7 +24,6 @@ export const ItemsList = () => {
 	const [page, setPage] = useState(1)
 	const [gender, setGender] = useState('')
 	const [status, setStatus] = useState('')
-	const [theme, setTheme] = useState(false)
 
 	const debouncedValue = useDebounce(searchValue, 500)
 
@@ -36,13 +45,8 @@ export const ItemsList = () => {
 		setStatus(event.target.value as string)
 	}
 
-	const handleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTheme(event.target.checked)
-	}
-
 	return (
 		<>
-
 			<header className={s.header}>
 				<TextField
 					id='outlined-basic'
@@ -55,13 +59,13 @@ export const ItemsList = () => {
 					className={s.search}
 				/>
 				<FormControl className={s.select} fullWidth>
-					<InputLabel id="demo-simple-select-label">Status</InputLabel>
+					<InputLabel id='demo-simple-select-label'>Status</InputLabel>
 					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select1"
+						labelId='demo-simple-select-label'
+						id='demo-simple-select1'
 						value={status}
 						defaultValue='All'
-						label="Status"
+						label='Status'
 						onChange={handleStatusSelect}
 						className={s.select}
 					>
@@ -72,12 +76,12 @@ export const ItemsList = () => {
 					</Select>
 				</FormControl>
 				<FormControl className={s.select} fullWidth>
-					<InputLabel id="demo-simple-select-label">Gender</InputLabel>
+					<InputLabel id='demo-simple-select-label'>Gender</InputLabel>
 					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select2"
+						labelId='demo-simple-select-label'
+						id='demo-simple-select2'
 						value={gender}
-						label="Gender"
+						label='Gender'
 						onChange={handleGenderSelect}
 						className={s.select}
 					>
@@ -89,9 +93,9 @@ export const ItemsList = () => {
 					</Select>
 				</FormControl>
 				<div className={s.toggler}>
-					<LightModeRoundedIcon />
+					<LightModeRoundedIcon />ya
 					<ThemeContext.Consumer>
-						{({ theme, setTheme }: any) => (
+						{({ theme, setTheme }) => (
 							<Switch
 								onChange={() => {
 									if (theme === themes.light) setTheme(themes.dark)
@@ -115,9 +119,18 @@ export const ItemsList = () => {
 								<Card key={el.id} onClick={() => handleItemClick(el.id)} className={s.card}>
 									<img src={el.image} alt='image' className={s.itemImage} />
 									<div className={s.itemInfo}>
-										<div className={s.property}><span>name:</span><p>{el.name}</p></div>
-										<div className={s.property}><span>status:</span><p>{el.status}</p></div>
-										<div className={s.property}><span>gender:</span><p>{el.gender}</p></div>
+										<div className={s.property}>
+											<span>name:</span>
+											<p>{el.name}</p>
+										</div>
+										<div className={s.property}>
+											<span>status:</span>
+											<p>{el.status}</p>
+										</div>
+										<div className={s.property}>
+											<span>gender:</span>
+											<p>{el.gender}</p>
+										</div>
 									</div>
 								</Card>
 							)

@@ -4,11 +4,16 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-     - name: Lint
-       run: yarn lint
+      - name: Lint
+        run: yarn lint
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prettier
+        run: yarn prettier
   test:
     needs: [lint]
     runs-on: ubuntu-latest
     steps:
-     - name: Test
-       run: yarn test
+      - name: Test
+        run: yarn test:sypress

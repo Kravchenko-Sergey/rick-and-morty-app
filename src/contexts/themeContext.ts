@@ -1,8 +1,16 @@
 import React from 'react'
 
 export const themes = {
-  dark: 'dark',
-  light: 'light',
+	dark: 'dark',
+	light: 'light'
 }
 
-export const ThemeContext = React.createContext({})
+type ThemeContextType = {
+	theme: string,
+	setTheme: React.Dispatch<React.SetStateAction<string>>
+}
+
+export const ThemeContext = React.createContext<ThemeContextType>({
+	theme: "",
+	setTheme: () => {}
+})

@@ -6,11 +6,11 @@ export const themes = {
 }
 
 type ThemeContextType = {
-	theme: string,
+	theme: string
 	setTheme: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const ThemeContext = React.createContext<ThemeContextType>({
-	theme: "",
+	theme: '',
 	setTheme: () => {}
 })

@@ -1,16 +1,17 @@
 name: Check
 on: push
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Lint
-        run: yarn lint
   prettier:
     runs-on: ubuntu-latest
     steps:
       - name: Prettier
         run: yarn prettier
+  lint:
+    needs: [prettier]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint
+        run: yarn lint
   test:
     needs: [lint]
     runs-on: ubuntu-latest

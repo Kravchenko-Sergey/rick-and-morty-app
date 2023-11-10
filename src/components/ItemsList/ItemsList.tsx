@@ -93,7 +93,8 @@ export const ItemsList = () => {
 					</Select>
 				</FormControl>
 				<div className={s.toggler}>
-					<LightModeRoundedIcon />ya
+					<LightModeRoundedIcon />
+					ya
 					<ThemeContext.Consumer>
 						{({ theme, setTheme }) => (
 							<Switch

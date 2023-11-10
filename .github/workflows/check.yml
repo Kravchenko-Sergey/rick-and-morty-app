@@ -7,7 +7,7 @@ jobs:
      - name: Lint
        run: yarn lint
   test:
-  needs: [lint]
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
      - name: Test

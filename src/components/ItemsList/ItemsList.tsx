@@ -58,7 +58,7 @@ export const ItemsList = () => {
 					<InputLabel id="demo-simple-select-label">Status</InputLabel>
 					<Select
 						labelId="demo-simple-select-label"
-						id="demo-simple-select"
+						id="demo-simple-select1"
 						value={status}
 						defaultValue='All'
 						label="Status"
@@ -75,7 +75,7 @@ export const ItemsList = () => {
 					<InputLabel id="demo-simple-select-label">Gender</InputLabel>
 					<Select
 						labelId="demo-simple-select-label"
-						id="demo-simple-select"
+						id="demo-simple-select2"
 						value={gender}
 						label="Gender"
 						onChange={handleGenderSelect}
@@ -119,7 +119,6 @@ export const ItemsList = () => {
 										<div className={s.property}><span>status:</span><p>{el.status}</p></div>
 										<div className={s.property}><span>gender:</span><p>{el.gender}</p></div>
 									</div>
-
 								</Card>
 							)
 						})}

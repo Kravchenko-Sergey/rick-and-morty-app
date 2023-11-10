@@ -1,8 +1,13 @@
 name: Check
 on: push
 jobs:
-  lont:
+  lint:
     runs-on: ubuntu-latest
     steps:
      - name: Lint
        run: yarn lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Test
+       run: yarn test

@@ -10,7 +10,7 @@
 		"prettier": "prettier --write .",
 		"preview": "vite preview",
 		"cypress": "cypress run",
-		"test:cypress": "start-server-and-test 'yarn' http://localhost:5173 cypress"
+		"test:cypress": "start-server-and-test vite http://localhost:5173 cypress"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.1",

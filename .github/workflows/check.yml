@@ -5,7 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Prettier
-        run: yarn prettier
+        run: |
+          cd home/rick-and-morty-app
+          yarn prettier
   lint:
     needs: [prettier]
     runs-on: ubuntu-latest

@@ -1,5 +1,5 @@
 name: Check
-on: push
+on: workflow_dispatch
 jobs:
   prettier:
     runs-on: ubuntu-latest
